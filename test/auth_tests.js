@@ -39,7 +39,6 @@ describe('auth', function() {
       .send({username: 'testuser', password: 'foobarbaz'})
       .end(function(err, res) {
         expect(err).to.eql(null);
-        //console.log(res.body);
         expect(res.body.token).to.have.length.above(0);
         done();
       });
@@ -53,12 +52,9 @@ describe('auth', function() {
       user.generateHash('foobarbaz', function(err, res) {
         if (err) throw err;
         user.save(function(err, data) {
-          console.log('save err,', err)
-          console.log('save data', data);
           if (err) throw err;
           user.generateToken(function(err, token) {
             if (err) throw err;
-            console.log('gent toknerr', token)
             this.token = token;
             done();
           }.bind(this));
@@ -72,7 +68,6 @@ describe('auth', function() {
         .auth('test', 'foobarbaz')
         .end(function(err, res) {
           expect(err).to.eql(null);
-          console.log('test resbonce body',res.body);
           expect(res.body.token).to.have.length.above(0);
           done();
         });

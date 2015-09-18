@@ -10,7 +10,7 @@ var languageSchema = new mongoose.Schema({
 var Language = mongoose.model('Language', languageSchema);
 
 Language.schema.path('languageRoot').validate(function (value) {
-  return /latin|greek/i.test(value);
+  return /latin|greek|germanic|celtic|indo|slavic/i.test(value);
 }, 'invalid languageRoot');
 
 module.exports = Language;

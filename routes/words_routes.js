@@ -9,8 +9,9 @@ var eatAuth = require(__dirname + '/../lib/eat_auth');
 
 var wordsRoute = module.exports = exports = express.Router();
 
-wordsRoute.post('/languages', jsonParser, function(req, res) {
+wordsRoute.post('/languages', jsonParser, eatAuth, function(req, res) {
   var newLanguage = new Language(req.body);
+  newLanguage.author = req.user.username;
   newLanguage.save(function(err,data) {
     if (err) return handleError(err, res);
     res.json(data);

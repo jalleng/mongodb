@@ -60,17 +60,17 @@ describe('the words resource', function() {
       });
   });
 
-  // it('should post a new language to the language collection', function(done) {
-  //   chai.request(url)
-  //     .post('/languages')
-  //     .send({languageBody: 'Spanish', token: this.token})
-  //     .end(function(err, res) {
-  //       expect(err).to.eql(null);
-  //       expect(res.body.languageBody).to.eql('Spanish');
-  //       expect(res.body.author).to.eql('test');
-  //       done();
-  //     });
-  // });
+  it('should post a new language to the language collection', function(done) {
+    chai.request(url)
+      .post('/languages')
+      .send({languageBody: 'Spanish', token: this.token})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.body.languageBody).to.eql('Spanish');
+        expect(res.body.author).to.eql('test');
+        done();
+      });
+  });
 
   // it('should check for language validation', function(done) {
   //   var myWord = new Word({ language: 'jibberjabber'});

@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-console.log('pr.env.monurl', process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/words_dev');
 process.env.APP_SECRET = process.env.APP_SECRET || 'safeword';
 var wordsRouter = require(__dirname + '/routes/words_routes');
