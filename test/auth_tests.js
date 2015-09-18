@@ -9,6 +9,7 @@ require(__dirname + '/../server');
 var User = require(__dirname + '/../models/user');
 var eatauth = require(__dirname + '/../lib/eat_auth');
 var httpBasic = require(__dirname + '/../lib/http_basic');
+var mongoose = require('mongoose');
 
 describe('httpBasic', function() {
   it('should be able to parse http basic auth', function() {
@@ -27,11 +28,11 @@ describe('httpBasic', function() {
 });
 
 describe('auth', function() {
-  // after(function(done) {
-  //   mongoose.connection.db.dropDatabase(function() {
-  //     done();
-  //   });
-  // });
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
+      done();
+    });
+  });
 
   it('should be able to create a user', function(done) {
     chai.request('localhost:3000/api')

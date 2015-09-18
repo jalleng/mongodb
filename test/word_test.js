@@ -13,12 +13,12 @@ var User = require(__dirname + '/../models/user');
 var eatauth = require(__dirname + '/../lib/eat_auth');
 
 describe('the words resource', function() {
-  // after(function(done) {
-  //   mongoose.connection.db.dropDatabase(function(err) {
-  //     if (err) throw err;
-  //     done();
-  //   });
-  // });
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function(err) {
+      if (err) throw err;
+      done();
+    });
+  });
 
   before(function(done) {
     var user = new User();
@@ -53,7 +53,6 @@ describe('the words resource', function() {
       .send({wordBody: 'test word', token: this.token})
       .end(function(err, res) {
         expect(err).to.eql(null);
-        //console.log(res.body.wordBody);
         expect(res.body.wordBody).to.eql('test word');
         expect(res.body.author).to.eql('test');
         done();
@@ -72,13 +71,13 @@ describe('the words resource', function() {
       });
   });
 
-  // it('should check for language validation', function(done) {
-  //   var myWord = new Word({ language: 'jibberjabber'});
-  //   myWord.save(function (err) {
-  //     expect(err.errors.language.value).to.eql('jibberjabber');
-  //     done();
-  //   });
-  // });
+  it('should check for language validation', function(done) {
+    var myWord = new Word({ language: 'jibberjabber'});
+    myWord.save(function (err) {
+      expect(err.errors.language.value).to.eql('jibberjabber');
+      done();
+    });
+  });
 
   describe('routes that need a word in the database', function() {
     beforeEach(function(done) {
