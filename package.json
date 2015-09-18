@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/jalleng/mongodb#readme",
   "dependencies": {
+    "bcrypt": "^0.8.5",
+    "eat": "^0.1.1",
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "mongoose": "^4.1.7"

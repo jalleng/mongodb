@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var wordSchema = new mongoose.Schema({
+  author: {type: String, default: 'Anonymous'},
   wordBody: String,
   language: {type: String, default: 'English'}
 });
