@@ -11,6 +11,9 @@ var url = 'localhost:3000/api';
 var Word = require(__dirname + '/../models/word');
 var User = require(__dirname + '/../models/user');
 var eatauth = require(__dirname + '/../lib/eat_auth');
+var EE = require('events').EventEmitter;
+var routeEvents = new EE();
+
 
 describe('the words resource', function() {
   after(function(done) {
@@ -26,7 +29,7 @@ describe('the words resource', function() {
     user.basic.username = 'test';
     user.generateHash('foobarbaz', function(err, res) {
       if (err) throw err;
-      user.save(function(err, data) {
+      user.save(function(err, res) {
         if (err) throw err;
         user.generateToken(function(err, token) {
           if (err) throw err;
