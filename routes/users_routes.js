@@ -36,27 +36,29 @@ usersRouter.post('/signup', jsonParser, function(req, res) {
   });
 });
 
-
-
 usersRouter.get('/signin', httpBasic, function(req, res) {
-
   User.findOne({'basic.username': req.auth.username}, function(err, user) {
-
     if (err) return handleError(err, res);
     if (!user) {
       return res.status(401).json({msg: 'Meow1! Could not authenticat!'});
-    }
+    };
+    routeEvents.emit("findOne", user);
+  });
 
+  routeEvents.on("findOne", function(user) {
     user.compareHash(req.auth.password, function(err, hashRes) {
       if (err) return handleError(err, res);
       if (!hashRes) {
         return res.status(401).json({msg: 'Meow2! Could not authenticat!'});
       }
+      routeEvents.emit("compare", user);
+    });
+  });
 
-      user.generateToken(function(err, token) {
-        if (err) return handleError(err, res);
+  routeEvents.on("compare", function(user) {
+    user.generateToken(function(err, token) {
+      if (err) return handleError(err, res);
         res.json({token: token});
-      });
     });
   });
 });
