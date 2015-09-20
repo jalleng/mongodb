@@ -17,20 +17,20 @@ usersRouter.post('/signup', jsonParser, function(req, res) {
   newUser.username = req.body.username;
   console.log("username", req.body.username)
   newUser.generateHash(req.body.password, function(err, hash) {
-    if (err) return res.send("wat?")
+    if (err) return res.send("Meow!, Could not authenticat")
       routeEvents.emit("hash", hash);
   });
 
   routeEvents.on("hash", function(hash) {
     newUser.save(function(err, data) {
-      if (err) return res.send("this broke")
+      if (err) return res.send("Meow!, Could not authenticat")
         routeEvents.emit("save", data);
     });
   });
 
   routeEvents.on("save", function(data) {
     newUser.generateToken(function(err, token) {
-      if (err) return res.send("lulwat")
+      if (err) return res.send("Meow!, Could not authenticat")
         res.json({token: token});
     });
   });
@@ -40,7 +40,7 @@ usersRouter.get('/signin', httpBasic, function(req, res) {
   User.findOne({'basic.username': req.auth.username}, function(err, user) {
     if (err) return handleError(err, res);
     if (!user) {
-      return res.status(401).json({msg: 'Meow1! Could not authenticat!'});
+      return res.status(401).json({msg: 'Meow! Could not authenticat!'});
     };
     routeEvents.emit("findOne", user);
   });
@@ -49,7 +49,7 @@ usersRouter.get('/signin', httpBasic, function(req, res) {
     user.compareHash(req.auth.password, function(err, hashRes) {
       if (err) return handleError(err, res);
       if (!hashRes) {
-        return res.status(401).json({msg: 'Meow2! Could not authenticat!'});
+        return res.status(401).json({msg: 'Meow! Could not authenticat!'});
       }
       routeEvents.emit("compare", user);
     });
