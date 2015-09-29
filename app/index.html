@@ -10,7 +10,13 @@
   <main data-ng-controller="notesController">
     <h1>{{greeting}}</h1>
     <input type="text" data-ng-model="greeting">
+    <section data-ng-controller="anotherController">
+      <h2>inside another controller: {{greeting}}</h2>
+      <input type = "text" data-ng-model="greeting">
+    </section>
   </main>
+
+
     <script src="bundle.js"></script>
 </body>
 </html>
