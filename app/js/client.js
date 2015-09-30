@@ -2,13 +2,14 @@
 
 require('angular/angular');
 
-var notesApp = angular.module('notesApp', []);
+var wordsApp = angular.module('wordsApp', []);
+require('./words/words')(wordsApp);
 
-notesApp.controller('notesController', ['$scope', function($scope) {
-  $scope.greeting = 'hello world';
-}]);
 
-notesApp.controller('anotherController', ['$scope', function($scope) {
-  //$scope.greeting = '';
-}]);
+
+
+// notesApp.controller('notesController', ['$scope', function($scope) {
+//   $scope.greeting = 'hello world';
+// }]);
+
 
